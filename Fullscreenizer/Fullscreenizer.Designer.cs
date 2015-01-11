@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Fullscreenizer));
 			this.lbl_apps = new System.Windows.Forms.Label();
 			this.lv_apps = new System.Windows.Forms.ListView();
 			this.ch_title = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -233,6 +234,7 @@
 			this.Controls.Add(this.gb_apps);
 			this.Controls.Add(this.lbl_apps);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MaximizeBox = false;
 			this.Name = "Fullscreenizer";
 			this.Text = "Fullscreenizer";

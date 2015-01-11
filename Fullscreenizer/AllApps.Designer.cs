@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AllApps));
 			this.lv_apps = new System.Windows.Forms.ListView();
 			this.ch_title = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.btn_addApp = new System.Windows.Forms.Button();
@@ -97,6 +98,7 @@
 			this.ClientSize = new System.Drawing.Size(355, 236);
 			this.Controls.Add(this.gb_apps);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MaximizeBox = false;
 			this.Name = "AllApps";
 			this.Load += new System.EventHandler(this.AllApps_Load);
