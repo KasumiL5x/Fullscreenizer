@@ -546,10 +546,11 @@ namespace Fullscreenizer
 				return;
 			}
 
-			if( isFullscreen && isBorderless )
+			// Used to check for fullscreen here, too, but now we allow for no scaling, so don't check it.
+			if( isBorderless )
 			{
-				// If fullscreen and borderless, but the state is invalid (no initial information), ignore the request.
-				// This can happen if the window we're tracking started out fullscreen or was made fullscreen by another
+				// If borderless, but the state is invalid (no initial information), ignore the request.
+				// This can happen if the window we're tracking started out borderless or was made borderless by another
 				// program.
 				if( !state.isValid() )
 				{
