@@ -9,6 +9,8 @@ namespace Fullscreenizer
 	 *     | bool   | default to false | If the hotkey is activated upon load.
 	 *     | int    | default to 0     | Bit flag for the modifier of the hotkey modifier(s).
 	 *     | int    | default to 0     | Bit flag for the key of the hotkey.
+	 *     | bool   | default to true  | Scale the window when fullscreenizing.
+	 *     | bool   | default to true  | Move the window to the top-left when fullscreenizing.
 	 *     | string | default to none  | All following lines are read as window classes to look for.
 	 */
 	public class Config
@@ -36,6 +38,20 @@ namespace Fullscreenizer
 			set{ _keyFlag = value; }
 		}
 
+		private bool _scaleWindow;
+		public bool ScaleWindow
+		{
+			get{ return _scaleWindow; }
+			set{ _scaleWindow = value; }
+		}
+
+		private bool _moveWindow;
+		public bool MoveWindow
+		{
+			get{ return _moveWindow; }
+			set{ _moveWindow = value; }
+		}
+
 		private List<string> _classes = new List<string>();
 		public List<string> Classes
 		{
@@ -48,6 +64,8 @@ namespace Fullscreenizer
 			_hotkeyActive = false;
 			_modifierFlags = Modifier.Ctrl;
 			_keyFlag = Keys.Home;
+			_scaleWindow = true;
+			_moveWindow = true;
 			_classes.Clear();
 		}
 
@@ -64,6 +82,10 @@ namespace Fullscreenizer
 			// Read the hotkey and classes from the config file.
 			StreamReader sr = new StreamReader(new FileStream(CONFIG_FILE, FileMode.Open));
 			if( !readHotkeyPart(sr) )
+			{
+				return false;
+			}
+			if( !readOptionsPart(sr) )
 			{
 				return false;
 			}
@@ -109,6 +131,25 @@ namespace Fullscreenizer
 			return true;
 		}
 
+		private bool readOptionsPart( StreamReader sr )
+		{
+			string line = null;
+
+			// Read scale window.
+			if( ((line = sr.ReadLine()) == null) || !bool.TryParse(line, out _scaleWindow) )
+			{
+				return false;
+			}
+
+			// Read move window.
+			if( ((line = sr.ReadLine()) == null) || !bool.TryParse(line, out _moveWindow) )
+			{
+				return false;
+			}
+
+			return true;
+		}
+
 		private void readClassesPart( StreamReader sr )
 		{
 			string line = null;
@@ -132,6 +173,8 @@ namespace Fullscreenizer
 			sw.WriteLine(_hotkeyActive.ToString());
 			sw.WriteLine(((int)_modifierFlags).ToString());
 			sw.WriteLine(((int)_keyFlag).ToString());
+			sw.WriteLine(_scaleWindow.ToString());
+			sw.WriteLine(_moveWindow.ToString());
 			sw.Close();
 		}
 
@@ -141,6 +184,8 @@ namespace Fullscreenizer
 			sw.WriteLine(_hotkeyActive.ToString());
 			sw.WriteLine(((int)_modifierFlags).ToString());
 			sw.WriteLine(((int)_keyFlag).ToString());
+			sw.WriteLine(_scaleWindow.ToString());
+			sw.WriteLine(_moveWindow.ToString());
 			foreach( string curr in _classes )
 			{
 				sw.WriteLine(curr);

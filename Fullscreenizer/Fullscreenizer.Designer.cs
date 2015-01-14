@@ -44,6 +44,8 @@
 			this.chk_hotkeyModShift = new System.Windows.Forms.CheckBox();
 			this.chk_hotkeyModCtrl = new System.Windows.Forms.CheckBox();
 			this.lbl_website = new System.Windows.Forms.Label();
+			this.chk_scaleToFit = new System.Windows.Forms.CheckBox();
+			this.chk_moveWindow = new System.Windows.Forms.CheckBox();
 			this.gb_apps.SuspendLayout();
 			this.gb_hotkey.SuspendLayout();
 			this.gb_hotkeyModifier.SuspendLayout();
@@ -93,6 +95,8 @@
 			// 
 			// gb_apps
 			// 
+			this.gb_apps.Controls.Add(this.chk_moveWindow);
+			this.gb_apps.Controls.Add(this.chk_scaleToFit);
 			this.gb_apps.Controls.Add(this.btn_removeApp);
 			this.gb_apps.Controls.Add(this.lv_apps);
 			this.gb_apps.Controls.Add(this.btn_showAllApps);
@@ -223,6 +227,32 @@
 			this.lbl_website.Text = "www.ngreen.org";
 			this.lbl_website.Click += new System.EventHandler(this.lbl_website_Click);
 			// 
+			// chk_scaleToFit
+			// 
+			this.chk_scaleToFit.AutoSize = true;
+			this.chk_scaleToFit.Checked = true;
+			this.chk_scaleToFit.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.chk_scaleToFit.Location = new System.Drawing.Point(88, 172);
+			this.chk_scaleToFit.Name = "chk_scaleToFit";
+			this.chk_scaleToFit.Size = new System.Drawing.Size(53, 17);
+			this.chk_scaleToFit.TabIndex = 5;
+			this.chk_scaleToFit.Text = "Scale";
+			this.chk_scaleToFit.UseVisualStyleBackColor = true;
+			this.chk_scaleToFit.CheckedChanged += new System.EventHandler(this.chk_scaleToFit_CheckedChanged);
+			// 
+			// chk_moveWindow
+			// 
+			this.chk_moveWindow.AutoSize = true;
+			this.chk_moveWindow.Checked = true;
+			this.chk_moveWindow.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.chk_moveWindow.Location = new System.Drawing.Point(148, 172);
+			this.chk_moveWindow.Name = "chk_moveWindow";
+			this.chk_moveWindow.Size = new System.Drawing.Size(53, 17);
+			this.chk_moveWindow.TabIndex = 6;
+			this.chk_moveWindow.Text = "Move";
+			this.chk_moveWindow.UseVisualStyleBackColor = true;
+			this.chk_moveWindow.CheckedChanged += new System.EventHandler(this.chk_moveWindow_CheckedChanged);
+			// 
 			// Fullscreenizer
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -240,6 +270,7 @@
 			this.Text = "Fullscreenizer";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Fullscreenizer_FormClosing);
 			this.gb_apps.ResumeLayout(false);
+			this.gb_apps.PerformLayout();
 			this.gb_hotkey.ResumeLayout(false);
 			this.gb_hotkeyModifier.ResumeLayout(false);
 			this.gb_hotkeyModifier.PerformLayout();
@@ -265,6 +296,8 @@
 		private System.Windows.Forms.ColumnHeader ch_title;
 		private System.Windows.Forms.Button btn_showAllApps;
 		private System.Windows.Forms.Button btn_removeApp;
+		private System.Windows.Forms.CheckBox chk_scaleToFit;
+		private System.Windows.Forms.CheckBox chk_moveWindow;
 	}
 }
 

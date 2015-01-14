@@ -188,6 +188,16 @@ namespace Fullscreenizer
 			_canFullscreeenize = true;
 		}
 
+		void chk_scaleToFit_CheckedChanged(object sender, EventArgs e)
+		{
+			_config.ScaleWindow = chk_scaleToFit.Checked;
+		}
+
+		void chk_moveWindow_CheckedChanged(object sender, EventArgs e)
+		{
+			_config.MoveWindow = chk_moveWindow.Checked;
+		}
+
 		void lbl_website_Click(object sender, EventArgs e)
 		{
 			System.Diagnostics.Process.Start("http://www.ngreen.org/");
@@ -200,7 +210,7 @@ namespace Fullscreenizer
 			if( !_config.readConfigFile() )
 			{
 				MessageBox.Show("Failed to parse config file.  Please fix or delete it.");
-				Application.Exit();
+				Environment.Exit(-1);
 			}
 
 			// Read the modifier bit flag and enable checkboxes as required.
@@ -217,6 +227,10 @@ namespace Fullscreenizer
 				chk_enableHotkey.Checked = true;
 				enableHotkey();
 			}
+
+			// Read the options.
+			chk_scaleToFit.Checked = _config.ScaleWindow;
+			chk_moveWindow.Checked = _config.MoveWindow;
 		}
 
 		void buildKeysList()
@@ -543,7 +557,7 @@ namespace Fullscreenizer
 				}
 				// Restore the window back to its initial style, position, and size.
 				Win32.setWindowStyle(hwnd, state.originalStyle);
-				Win32.setWindowPos(hwnd, state.initialX, state.initialY, state.initialWidth, state.initialHeight);
+				Win32.setWindowPos(hwnd, state.initialX, state.initialY, state.initialWidth, state.initialHeight, Win32.SetWindowPosFlags.SWP_FRAMECHANGED);
 			}
 			else
 			{
@@ -561,8 +575,23 @@ namespace Fullscreenizer
 				Win32.getWindowMonitorSize(hwnd, out monitorX, out monitorY, out monitorWidth, out monitorHeight);
 				// Make the window borderless.
 				Win32.makeWindowBorderless(hwnd);
-				// Position the window at the top-left of the monitor it is on and stretch to fill it.
-				Win32.setWindowPos(hwnd, monitorX, monitorY, monitorWidth, monitorHeight);
+
+				if( chk_scaleToFit.Checked && chk_moveWindow.Checked )
+				{
+					// Move the window to the top-left of the monitor and scale it to fill.
+					Win32.setWindowPos(hwnd, monitorX, monitorY, monitorWidth, monitorHeight, Win32.SetWindowPosFlags.SWP_FRAMECHANGED);
+				}
+				else if( chk_scaleToFit.Checked && !chk_moveWindow.Checked )
+				{
+					// Only scale the window to fill and don't change the position.
+					Win32.setWindowPos(hwnd, monitorX, monitorY, monitorWidth, monitorHeight, Win32.SetWindowPosFlags.SWP_NOREPOSITION);
+				}
+				else if( !chk_scaleToFit.Checked && chk_moveWindow.Checked )
+				{
+					// Only move the window and don't scale it.
+					Win32.setWindowPos(hwnd, monitorX, monitorY, monitorWidth, monitorHeight, Win32.SetWindowPosFlags.SWP_NOSIZE);
+				}
+				// Otherwise, don't do anything.
 			}
 
 			_canFullscreeenize = false;

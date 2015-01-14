@@ -105,7 +105,13 @@ namespace Fullscreenizer
 
 		// Window rect stuff.
 		static readonly IntPtr HWND_TOP = new IntPtr(0);
-		static readonly uint SWP_FRAMECHANGED = 0x0020;
+		[Flags]
+		public enum SetWindowPosFlags : uint
+		{
+			SWP_FRAMECHANGED = 0x0020,
+			SWP_NOREPOSITION = 0x0200,
+			SWP_NOSIZE = 0x0001
+		}
 		[DllImport("user32.dll", SetLastError=true)]
 		static extern bool GetWindowRect(IntPtr hwnd, out RECT lpRect);
 		[DllImport("user32.dll", SetLastError=true)]
@@ -260,9 +266,9 @@ namespace Fullscreenizer
 			height = rect.Height;
 		}
 
-		public static void setWindowPos( IntPtr hwnd, int x, int y, int width, int height )
+		public static void setWindowPos( IntPtr hwnd, int x, int y, int width, int height, SetWindowPosFlags flags )
 		{
-			SetWindowPos(hwnd, HWND_TOP, x, y, width, height, SWP_FRAMECHANGED);
+			SetWindowPos(hwnd, HWND_TOP, x, y, width, height, (uint)flags);
 		}
 
 		public static void getWindowMonitorSize( IntPtr hwnd, out int x, out int y, out int width, out int height )
