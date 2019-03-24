@@ -31,7 +31,7 @@ namespace Fullscreenizer
 
 		// Timer for allowing a window to be fullscreenized.
 		Timer _canFullscreenizeTimer = new Timer();
-		bool _canFullscreeenize = true;
+		bool _canFullscreenize = true;
 
 		public Fullscreenizer()
 		{
@@ -66,6 +66,15 @@ namespace Fullscreenizer
 		void Fullscreenizer_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			_config.writeConfigFile();
+		}
+
+		void Fullscreenizer_Resize(object sender, EventArgs e)
+		{
+			if (WindowState == FormWindowState.Minimized && chk_minimizeToTray.Checked)
+			{
+				Hide();
+				notifyIcon.Visible = true;
+			}
 		}
 
 		void chk_hotkeyModCtrl_Click(object sender, EventArgs e)
@@ -185,7 +194,7 @@ namespace Fullscreenizer
 
 		void _canFullscreenizeTimer_Tick(object sender, EventArgs e)
 		{
-			_canFullscreeenize = true;
+			_canFullscreenize = true;
 		}
 
 		void chk_scaleToFit_CheckedChanged(object sender, EventArgs e)
@@ -198,9 +207,26 @@ namespace Fullscreenizer
 			_config.MoveWindow = chk_moveWindow.Checked;
 		}
 
+		void chk_minimizeToTray_CheckedChanged(object sender, EventArgs e)
+		{
+			_config.MinimizeToTray = chk_minimizeToTray.Checked;
+		}
+
 		void lbl_website_Click(object sender, EventArgs e)
 		{
 			System.Diagnostics.Process.Start("http://www.ngreen.org/");
+		}
+
+		private void toolStripMenuItemShow_Click(object sender, EventArgs e)
+		{
+			Show();
+			WindowState = FormWindowState.Normal;
+			notifyIcon.Visible = false;
+		}
+
+		private void toolStripMenuItemClose_Click(object sender, EventArgs e)
+		{
+			Close();
 		}
 
 		void processConfig()
@@ -209,7 +235,7 @@ namespace Fullscreenizer
 			// This is favorable as it doesn't mean the user looses their config even it if fails.
 			if( !_config.readConfigFile() )
 			{
-				MessageBox.Show("Failed to parse config file.  Please fix or delete it.");
+				MessageBox.Show("Failed to parse config file. Please fix or delete it.");
 				Environment.Exit(-1);
 			}
 
@@ -229,8 +255,9 @@ namespace Fullscreenizer
 			}
 
 			// Read the options.
-			chk_scaleToFit.Checked = _config.ScaleWindow;
-			chk_moveWindow.Checked = _config.MoveWindow;
+			chk_scaleToFit.Checked     = _config.ScaleWindow;
+			chk_moveWindow.Checked     = _config.MoveWindow;
+			chk_minimizeToTray.Checked = _config.MinimizeToTray;
 		}
 
 		void buildKeysList()
@@ -522,7 +549,7 @@ namespace Fullscreenizer
 
 		void fullscreenizeWindow( IntPtr hwnd )
 		{
-			if( !_canFullscreeenize )
+			if( !_canFullscreenize )
 			{
 				return;
 			}
@@ -595,7 +622,17 @@ namespace Fullscreenizer
 				// Otherwise, don't do anything.
 			}
 
-			_canFullscreeenize = false;
+			_canFullscreenize = false;
+		}
+
+		private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
+		{
+			if (e.Button == MouseButtons.Left)
+			{
+				Show();
+				WindowState = FormWindowState.Normal;
+				notifyIcon.Visible = false;
+			}
 		}
 	}
 }
