@@ -10,7 +10,7 @@ namespace Fullscreenizer
 	{
 		// How often to poll, update, and prune windows.
 		const int UPDATE_INTERVAL = 1000;
-		// How often a window can be fullscreenized (regardless of window for simplicity).  This is double the update
+		// How often a window can be fullscreenized (regardless of window for simplicity). This is double the update
 		// interval so that at least one update can run before the next fullscreenize.
 		const int FULLSCREENIZE_INTERVAL = UPDATE_INTERVAL * 2;
 
@@ -232,7 +232,7 @@ namespace Fullscreenizer
 		void processConfig()
 		{
 			// Read the config file, and if there's an error parsing it, warn the user and exit.
-			// This is favorable as it doesn't mean the user looses their config even it if fails.
+			// This is favorable as it doesn't mean the user loses their config even it if fails.
 			if( !_config.readConfigFile() )
 			{
 				MessageBox.Show("Failed to parse config file. Please fix or delete it.");
@@ -589,8 +589,8 @@ namespace Fullscreenizer
 			}
 			else
 			{
-				// Get the initial window settings before fullscreening.  We do this every time as the user may want it
-				// on a certain monitor, thus the position would change.  The user could also have changed the resolution
+				// Get the initial window settings before fullscreening. We do this every time as the user may want it
+				// on a certain monitor, thus the position would change. The user could also have changed the resolution
 				// in-game since we detected the window, and so on.
 				state.originalStyle = Win32.getWindowStyle(hwnd);
 				Win32.getWindowRect(hwnd, out state.initialX, out state.initialY, out state.initialWidth, out state.initialHeight);
