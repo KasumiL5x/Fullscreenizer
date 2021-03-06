@@ -10,7 +10,7 @@ namespace Fullscreenizer
 	{
 		// How often to poll, update, and prune windows.
 		const int UPDATE_INTERVAL = 1000;
-		// How often a window can be fullscreenized (regardless of window for simplicity).  This is double the update
+		// How often a window can be fullscreenized (regardless of window for simplicity). This is double the update
 		// interval so that at least one update can run before the next fullscreenize.
 		const int FULLSCREENIZE_INTERVAL = UPDATE_INTERVAL * 2;
 
@@ -31,7 +31,7 @@ namespace Fullscreenizer
 
 		// Timer for allowing a window to be fullscreenized.
 		Timer _canFullscreenizeTimer = new Timer();
-		bool _canFullscreeenize = true;
+		bool _canFullscreenize = true;
 
 		public Fullscreenizer()
 		{
@@ -66,6 +66,15 @@ namespace Fullscreenizer
 		void Fullscreenizer_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			_config.writeConfigFile();
+		}
+
+		void Fullscreenizer_Resize(object sender, EventArgs e)
+		{
+			if (WindowState == FormWindowState.Minimized && chk_minimizeToTray.Checked)
+			{
+				Hide();
+				notifyIcon.Visible = true;
+			}
 		}
 
 		void chk_hotkeyModCtrl_Click(object sender, EventArgs e)
@@ -185,7 +194,7 @@ namespace Fullscreenizer
 
 		void _canFullscreenizeTimer_Tick(object sender, EventArgs e)
 		{
-			_canFullscreeenize = true;
+			_canFullscreenize = true;
 		}
 
 		void chk_scaleToFit_CheckedChanged(object sender, EventArgs e)
@@ -198,18 +207,35 @@ namespace Fullscreenizer
 			_config.MoveWindow = chk_moveWindow.Checked;
 		}
 
+		void chk_minimizeToTray_CheckedChanged(object sender, EventArgs e)
+		{
+			_config.MinimizeToTray = chk_minimizeToTray.Checked;
+		}
+
 		void lbl_website_Click(object sender, EventArgs e)
 		{
 			System.Diagnostics.Process.Start("http://www.ngreen.org/");
 		}
 
+		private void toolStripMenuItemShow_Click(object sender, EventArgs e)
+		{
+			Show();
+			WindowState = FormWindowState.Normal;
+			notifyIcon.Visible = false;
+		}
+
+		private void toolStripMenuItemClose_Click(object sender, EventArgs e)
+		{
+			Close();
+		}
+
 		void processConfig()
 		{
 			// Read the config file, and if there's an error parsing it, warn the user and exit.
-			// This is favorable as it doesn't mean the user looses their config even it if fails.
+			// This is favorable as it doesn't mean the user loses their config even it if fails.
 			if( !_config.readConfigFile() )
 			{
-				MessageBox.Show("Failed to parse config file.  Please fix or delete it.");
+				MessageBox.Show("Failed to parse config file. Please fix or delete it.");
 				Environment.Exit(-1);
 			}
 
@@ -229,8 +255,9 @@ namespace Fullscreenizer
 			}
 
 			// Read the options.
-			chk_scaleToFit.Checked = _config.ScaleWindow;
-			chk_moveWindow.Checked = _config.MoveWindow;
+			chk_scaleToFit.Checked     = _config.ScaleWindow;
+			chk_moveWindow.Checked     = _config.MoveWindow;
+			chk_minimizeToTray.Checked = _config.MinimizeToTray;
 		}
 
 		void buildKeysList()
@@ -522,7 +549,7 @@ namespace Fullscreenizer
 
 		void fullscreenizeWindow( IntPtr hwnd )
 		{
-			if( !_canFullscreeenize )
+			if( !_canFullscreenize )
 			{
 				return;
 			}
@@ -562,8 +589,8 @@ namespace Fullscreenizer
 			}
 			else
 			{
-				// Get the initial window settings before fullscreening.  We do this every time as the user may want it
-				// on a certain monitor, thus the position would change.  The user could also have changed the resolution
+				// Get the initial window settings before fullscreening. We do this every time as the user may want it
+				// on a certain monitor, thus the position would change. The user could also have changed the resolution
 				// in-game since we detected the window, and so on.
 				state.originalStyle = Win32.getWindowStyle(hwnd);
 				Win32.getWindowRect(hwnd, out state.initialX, out state.initialY, out state.initialWidth, out state.initialHeight);
@@ -595,7 +622,17 @@ namespace Fullscreenizer
 				// Otherwise, don't do anything.
 			}
 
-			_canFullscreeenize = false;
+			_canFullscreenize = false;
+		}
+
+		private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
+		{
+			if (e.Button == MouseButtons.Left)
+			{
+				Show();
+				WindowState = FormWindowState.Normal;
+				notifyIcon.Visible = false;
+			}
 		}
 	}
 }
