@@ -7,5 +7,8 @@ Fullscreenizing apps is fully reversible to their initial settings, and multiple
 A hotkey can be used instead of the UI.
 Configuration options are saved, and the hotkey can automatically enable upon startup.
 
+## Binaries
+See [here](https://github.com/KasumiL5x/Fullscreenizer/releases) for the available binaries.
+
 ## Status
 This project was created around 2014/2015 and is not maintained.
