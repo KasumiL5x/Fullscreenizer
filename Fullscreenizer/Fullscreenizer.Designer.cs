@@ -72,10 +72,11 @@
 			// lv_apps
 			// 
 			this.lv_apps.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-			this.ch_title});
+            this.ch_title});
 			this.lv_apps.FullRowSelect = true;
 			this.lv_apps.GridLines = true;
 			this.lv_apps.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+			this.lv_apps.HideSelection = false;
 			this.lv_apps.Location = new System.Drawing.Point(6, 14);
 			this.lv_apps.MultiSelect = false;
 			this.lv_apps.Name = "lv_apps";
@@ -254,11 +255,11 @@
 			this.lbl_website.AutoSize = true;
 			this.lbl_website.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.lbl_website.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lbl_website.Location = new System.Drawing.Point(272, 3);
+			this.lbl_website.Location = new System.Drawing.Point(273, 3);
 			this.lbl_website.Name = "lbl_website";
-			this.lbl_website.Size = new System.Drawing.Size(85, 13);
+			this.lbl_website.Size = new System.Drawing.Size(93, 13);
 			this.lbl_website.TabIndex = 12;
-			this.lbl_website.Text = "www.ngreen.org";
+			this.lbl_website.Text = "GitHub Repository";
 			this.lbl_website.Click += new System.EventHandler(this.lbl_website_Click);
 			// 
 			// notifyIcon
@@ -271,9 +272,9 @@
 			// contextMenuStrip
 			// 
 			this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.toolStripMenuItemShow,
-			this.toolStripSeparator,
-			this.toolStripMenuItemClose});
+            this.toolStripMenuItemShow,
+            this.toolStripSeparator,
+            this.toolStripMenuItemClose});
 			this.contextMenuStrip.Name = "contextMenuStrip";
 			this.contextMenuStrip.Size = new System.Drawing.Size(104, 54);
 			// 

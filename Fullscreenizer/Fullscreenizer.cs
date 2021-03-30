@@ -214,7 +214,7 @@ namespace Fullscreenizer
 
 		void lbl_website_Click(object sender, EventArgs e)
 		{
-			System.Diagnostics.Process.Start("http://www.ngreen.org/");
+			System.Diagnostics.Process.Start("https://github.com/KasumiL5x/Fullscreenizer");
 		}
 
 		private void toolStripMenuItemShow_Click(object sender, EventArgs e)
