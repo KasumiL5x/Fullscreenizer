@@ -212,7 +212,7 @@ namespace Fullscreenizer
 
 		private void cb_lockCursorHotkeyKey_SelectionChangeCommitted(object sender, EventArgs e)
 		{
-			_config.LockCursorKeyFlags = (Keys)cb_fullscreenizeHotkeyKey.SelectedItem;
+			_config.LockCursorKeyFlags = (Keys)cb_lockCursorHotkeyKey.SelectedItem;
 			if( _config.LockCursorHotkeyActive )
 			{
 				enableHotkey();
