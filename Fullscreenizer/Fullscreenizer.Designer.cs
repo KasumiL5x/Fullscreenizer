@@ -48,7 +48,7 @@
 			this.chk_minimizeToTray = new System.Windows.Forms.CheckBox();
 			this.chk_lockCursor = new System.Windows.Forms.CheckBox();
 			this.chk_fullscreenizeEnableHotkey = new System.Windows.Forms.CheckBox();
-			this.gb_hotkeyModifier = new System.Windows.Forms.GroupBox();
+			this.gb_fullscreenizeHotkeyModifier = new System.Windows.Forms.GroupBox();
 			this.chk_fullscreenizeHotkeyModAlt = new System.Windows.Forms.CheckBox();
 			this.chk_fullscreenizeHotkeyModShift = new System.Windows.Forms.CheckBox();
 			this.chk_fullscreenizeHotkeyModCtrl = new System.Windows.Forms.CheckBox();
@@ -56,17 +56,17 @@
 			this.gb_fullscreenizeHotkey = new System.Windows.Forms.GroupBox();
 			this.gb_lockCursorHotkey = new System.Windows.Forms.GroupBox();
 			this.cb_lockCursorHotkeyKey = new System.Windows.Forms.ComboBox();
-			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.gb_lockCursorHotkeyModifier = new System.Windows.Forms.GroupBox();
 			this.chk_lockCursorHotkeyModAlt = new System.Windows.Forms.CheckBox();
 			this.chk_lockCursorHotkeyModShift = new System.Windows.Forms.CheckBox();
 			this.chk_lockCursorHotkeyModCtrl = new System.Windows.Forms.CheckBox();
 			this.chk_lockCursorEnableHotkey = new System.Windows.Forms.CheckBox();
 			this.gb_apps.SuspendLayout();
 			this.contextMenuStrip.SuspendLayout();
-			this.gb_hotkeyModifier.SuspendLayout();
+			this.gb_fullscreenizeHotkeyModifier.SuspendLayout();
 			this.gb_fullscreenizeHotkey.SuspendLayout();
 			this.gb_lockCursorHotkey.SuspendLayout();
-			this.groupBox2.SuspendLayout();
+			this.gb_lockCursorHotkeyModifier.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// lbl_apps
@@ -260,16 +260,16 @@
 			this.chk_fullscreenizeEnableHotkey.UseVisualStyleBackColor = true;
 			this.chk_fullscreenizeEnableHotkey.Click += new System.EventHandler(this.chk_fullscreenizeEnableHotkey_Click);
 			// 
-			// gb_hotkeyModifier
+			// gb_fullscreenizeHotkeyModifier
 			// 
-			this.gb_hotkeyModifier.Controls.Add(this.chk_fullscreenizeHotkeyModAlt);
-			this.gb_hotkeyModifier.Controls.Add(this.chk_fullscreenizeHotkeyModShift);
-			this.gb_hotkeyModifier.Controls.Add(this.chk_fullscreenizeHotkeyModCtrl);
-			this.gb_hotkeyModifier.Location = new System.Drawing.Point(6, 9);
-			this.gb_hotkeyModifier.Name = "gb_hotkeyModifier";
-			this.gb_hotkeyModifier.Size = new System.Drawing.Size(139, 29);
-			this.gb_hotkeyModifier.TabIndex = 11;
-			this.gb_hotkeyModifier.TabStop = false;
+			this.gb_fullscreenizeHotkeyModifier.Controls.Add(this.chk_fullscreenizeHotkeyModAlt);
+			this.gb_fullscreenizeHotkeyModifier.Controls.Add(this.chk_fullscreenizeHotkeyModShift);
+			this.gb_fullscreenizeHotkeyModifier.Controls.Add(this.chk_fullscreenizeHotkeyModCtrl);
+			this.gb_fullscreenizeHotkeyModifier.Location = new System.Drawing.Point(6, 9);
+			this.gb_fullscreenizeHotkeyModifier.Name = "gb_fullscreenizeHotkeyModifier";
+			this.gb_fullscreenizeHotkeyModifier.Size = new System.Drawing.Size(139, 29);
+			this.gb_fullscreenizeHotkeyModifier.TabIndex = 11;
+			this.gb_fullscreenizeHotkeyModifier.TabStop = false;
 			// 
 			// chk_fullscreenizeHotkeyModAlt
 			// 
@@ -316,7 +316,7 @@
 			// 
 			this.cb_fullscreenizeHotkeyKey.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.cb_fullscreenizeHotkeyKey.FormattingEnabled = true;
-			this.cb_fullscreenizeHotkeyKey.Location = new System.Drawing.Point(151, 17);
+			this.cb_fullscreenizeHotkeyKey.Location = new System.Drawing.Point(151, 16);
 			this.cb_fullscreenizeHotkeyKey.Name = "cb_fullscreenizeHotkeyKey";
 			this.cb_fullscreenizeHotkeyKey.Size = new System.Drawing.Size(183, 21);
 			this.cb_fullscreenizeHotkeyKey.TabIndex = 11;
@@ -326,7 +326,7 @@
 			// gb_fullscreenizeHotkey
 			// 
 			this.gb_fullscreenizeHotkey.Controls.Add(this.cb_fullscreenizeHotkeyKey);
-			this.gb_fullscreenizeHotkey.Controls.Add(this.gb_hotkeyModifier);
+			this.gb_fullscreenizeHotkey.Controls.Add(this.gb_fullscreenizeHotkeyModifier);
 			this.gb_fullscreenizeHotkey.Location = new System.Drawing.Point(16, 261);
 			this.gb_fullscreenizeHotkey.Name = "gb_fullscreenizeHotkey";
 			this.gb_fullscreenizeHotkey.Size = new System.Drawing.Size(342, 47);
@@ -336,7 +336,7 @@
 			// gb_lockCursorHotkey
 			// 
 			this.gb_lockCursorHotkey.Controls.Add(this.cb_lockCursorHotkeyKey);
-			this.gb_lockCursorHotkey.Controls.Add(this.groupBox2);
+			this.gb_lockCursorHotkey.Controls.Add(this.gb_lockCursorHotkeyModifier);
 			this.gb_lockCursorHotkey.Location = new System.Drawing.Point(16, 335);
 			this.gb_lockCursorHotkey.Name = "gb_lockCursorHotkey";
 			this.gb_lockCursorHotkey.Size = new System.Drawing.Size(342, 47);
@@ -347,23 +347,23 @@
 			// 
 			this.cb_lockCursorHotkeyKey.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.cb_lockCursorHotkeyKey.FormattingEnabled = true;
-			this.cb_lockCursorHotkeyKey.Location = new System.Drawing.Point(151, 17);
+			this.cb_lockCursorHotkeyKey.Location = new System.Drawing.Point(151, 16);
 			this.cb_lockCursorHotkeyKey.Name = "cb_lockCursorHotkeyKey";
 			this.cb_lockCursorHotkeyKey.Size = new System.Drawing.Size(183, 21);
 			this.cb_lockCursorHotkeyKey.TabIndex = 11;
 			this.cb_lockCursorHotkeyKey.TabStop = false;
 			this.cb_lockCursorHotkeyKey.SelectionChangeCommitted += new System.EventHandler(this.cb_lockCursorHotkeyKey_SelectionChangeCommitted);
 			// 
-			// groupBox2
+			// gb_lockCursorHotkeyModifier
 			// 
-			this.groupBox2.Controls.Add(this.chk_lockCursorHotkeyModAlt);
-			this.groupBox2.Controls.Add(this.chk_lockCursorHotkeyModShift);
-			this.groupBox2.Controls.Add(this.chk_lockCursorHotkeyModCtrl);
-			this.groupBox2.Location = new System.Drawing.Point(6, 9);
-			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(139, 29);
-			this.groupBox2.TabIndex = 11;
-			this.groupBox2.TabStop = false;
+			this.gb_lockCursorHotkeyModifier.Controls.Add(this.chk_lockCursorHotkeyModAlt);
+			this.gb_lockCursorHotkeyModifier.Controls.Add(this.chk_lockCursorHotkeyModShift);
+			this.gb_lockCursorHotkeyModifier.Controls.Add(this.chk_lockCursorHotkeyModCtrl);
+			this.gb_lockCursorHotkeyModifier.Location = new System.Drawing.Point(6, 9);
+			this.gb_lockCursorHotkeyModifier.Name = "gb_lockCursorHotkeyModifier";
+			this.gb_lockCursorHotkeyModifier.Size = new System.Drawing.Size(139, 29);
+			this.gb_lockCursorHotkeyModifier.TabIndex = 11;
+			this.gb_lockCursorHotkeyModifier.TabStop = false;
 			// 
 			// chk_lockCursorHotkeyModAlt
 			// 
@@ -444,12 +444,12 @@
 			this.gb_apps.ResumeLayout(false);
 			this.gb_apps.PerformLayout();
 			this.contextMenuStrip.ResumeLayout(false);
-			this.gb_hotkeyModifier.ResumeLayout(false);
-			this.gb_hotkeyModifier.PerformLayout();
+			this.gb_fullscreenizeHotkeyModifier.ResumeLayout(false);
+			this.gb_fullscreenizeHotkeyModifier.PerformLayout();
 			this.gb_fullscreenizeHotkey.ResumeLayout(false);
 			this.gb_lockCursorHotkey.ResumeLayout(false);
-			this.groupBox2.ResumeLayout(false);
-			this.groupBox2.PerformLayout();
+			this.gb_lockCursorHotkeyModifier.ResumeLayout(false);
+			this.gb_lockCursorHotkeyModifier.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -475,7 +475,7 @@
 		private System.Windows.Forms.CheckBox chk_minimizeToTray;
         private System.Windows.Forms.CheckBox chk_lockCursor;
         private System.Windows.Forms.CheckBox chk_fullscreenizeEnableHotkey;
-        private System.Windows.Forms.GroupBox gb_hotkeyModifier;
+        private System.Windows.Forms.GroupBox gb_fullscreenizeHotkeyModifier;
         private System.Windows.Forms.CheckBox chk_fullscreenizeHotkeyModAlt;
         private System.Windows.Forms.CheckBox chk_fullscreenizeHotkeyModShift;
         private System.Windows.Forms.CheckBox chk_fullscreenizeHotkeyModCtrl;
@@ -483,7 +483,7 @@
         private System.Windows.Forms.GroupBox gb_fullscreenizeHotkey;
         private System.Windows.Forms.GroupBox gb_lockCursorHotkey;
         private System.Windows.Forms.ComboBox cb_lockCursorHotkeyKey;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox gb_lockCursorHotkeyModifier;
         private System.Windows.Forms.CheckBox chk_lockCursorHotkeyModAlt;
         private System.Windows.Forms.CheckBox chk_lockCursorHotkeyModShift;
         private System.Windows.Forms.CheckBox chk_lockCursorHotkeyModCtrl;

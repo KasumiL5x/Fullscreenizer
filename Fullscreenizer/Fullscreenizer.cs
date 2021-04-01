@@ -474,16 +474,32 @@ namespace Fullscreenizer
 			bool shiftOk = (careAboutShift && shiftPressed) || (!careAboutShift);
 			bool altOk = (careAboutAlt && altPressed) || (!careAboutAlt);
 
+			IntPtr foregroundWindow = Win32.getForegroundWindow();
+			if ( foregroundWindow == IntPtr.Zero )
+			{
+				return;
+			}
+
 			// If all are OK and the held key matches out desired key...
 			if( ctrlOk && shiftOk && altOk && (_currHeldKey == _config.FullscreenizeKeyFlags) )
 			{
-				IntPtr foregroundWindow = Win32.getForegroundWindow();
-				if( foregroundWindow == IntPtr.Zero )
-				{
-					return;
-				}
-
 				fullscreenizeWindow(foregroundWindow);
+			}
+
+			if( ctrlOk && shiftOk && altOk && (_currHeldKey == _config.LockCursorKeyFlags) )
+			{
+				Win32.getWindowRect(foregroundWindow, out int x, out int y, out int width, out int height );
+
+				// The cursor was already locked to the window bounds, unlock it
+				if( Cursor.Clip.Equals(new Rectangle(x, y, width, height)) )
+				{
+					Cursor.Clip = Rectangle.Empty;
+				}
+				// Lock the cursor to the window bounds
+				else
+				{
+					Cursor.Clip = new Rectangle(x, y, width, height);
+				}
 			}
 		}
 
@@ -502,7 +518,7 @@ namespace Fullscreenizer
 			{
 				_currHeldModifier = _currHeldModifier & ~Modifier.Alt;
 			}
-			else if( e.KeyCode == _config.FullscreenizeKeyFlags )
+			else if( e.KeyCode == _config.FullscreenizeKeyFlags || e.KeyCode == _config.LockCursorKeyFlags )
 			{
 				// Same for the keycode.
 				_currHeldKey = _currHeldKey & ~e.KeyCode;
@@ -693,6 +709,9 @@ namespace Fullscreenizer
 				// Restore the window back to its initial style, position, and size.
 				Win32.setWindowStyle(hwnd, state.originalStyle);
 				Win32.setWindowPos(hwnd, state.initialX, state.initialY, state.initialWidth, state.initialHeight, Win32.SetWindowPosFlags.SWP_FRAMECHANGED);
+
+				// Unlock the cursor
+				Cursor.Clip = Rectangle.Empty;
 			}
 			else
 			{
@@ -710,6 +729,12 @@ namespace Fullscreenizer
 				Win32.getWindowMonitorSize(hwnd, out monitorX, out monitorY, out monitorWidth, out monitorHeight);
 				// Make the window borderless.
 				Win32.makeWindowBorderless(hwnd);
+
+				if( chk_lockCursor.Checked )
+				{
+					// Lock the cursor to the window bounds
+					Cursor.Clip = new Rectangle(state.initialX, state.initialY, state.initialWidth, state.initialHeight);
+				}
 
 				if( chk_scaleToFit.Checked && chk_moveWindow.Checked )
 				{
