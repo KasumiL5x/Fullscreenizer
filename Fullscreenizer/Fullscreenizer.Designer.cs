@@ -248,8 +248,9 @@
 			// 
 			// chk_fullscreenizeEnableHotkey
 			// 
-			this.chk_fullscreenizeEnableHotkey.AutoCheck = false;
 			this.chk_fullscreenizeEnableHotkey.AutoSize = true;
+			this.chk_fullscreenizeEnableHotkey.Checked = true;
+			this.chk_fullscreenizeEnableHotkey.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.chk_fullscreenizeEnableHotkey.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.chk_fullscreenizeEnableHotkey.Location = new System.Drawing.Point(16, 236);
 			this.chk_fullscreenizeEnableHotkey.Name = "chk_fullscreenizeEnableHotkey";
@@ -258,7 +259,7 @@
 			this.chk_fullscreenizeEnableHotkey.TabStop = false;
 			this.chk_fullscreenizeEnableHotkey.Text = "Fullscreenize hotkey";
 			this.chk_fullscreenizeEnableHotkey.UseVisualStyleBackColor = true;
-			this.chk_fullscreenizeEnableHotkey.Click += new System.EventHandler(this.chk_fullscreenizeEnableHotkey_Click);
+			this.chk_fullscreenizeEnableHotkey.CheckedChanged += new System.EventHandler(this.chk_fullscreenizeEnableHotkey_CheckedChanged);
 			// 
 			// gb_fullscreenizeHotkeyModifier
 			// 
@@ -408,8 +409,9 @@
 			// 
 			// chk_lockCursorEnableHotkey
 			// 
-			this.chk_lockCursorEnableHotkey.AutoCheck = false;
 			this.chk_lockCursorEnableHotkey.AutoSize = true;
+			this.chk_lockCursorEnableHotkey.Checked = true;
+			this.chk_lockCursorEnableHotkey.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.chk_lockCursorEnableHotkey.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.chk_lockCursorEnableHotkey.Location = new System.Drawing.Point(16, 310);
 			this.chk_lockCursorEnableHotkey.Name = "chk_lockCursorEnableHotkey";
@@ -418,7 +420,7 @@
 			this.chk_lockCursorEnableHotkey.TabStop = false;
 			this.chk_lockCursorEnableHotkey.Text = "Lock cursor hotkey";
 			this.chk_lockCursorEnableHotkey.UseVisualStyleBackColor = true;
-			this.chk_lockCursorEnableHotkey.Click += new System.EventHandler(this.chk_lockCursorEnableHotkey_Click);
+			this.chk_lockCursorEnableHotkey.CheckedChanged += new System.EventHandler(this.chk_lockCursorEnableHotkey_CheckedChanged);
 			// 
 			// Fullscreenizer
 			// 

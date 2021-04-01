@@ -32,13 +32,13 @@ namespace Fullscreenizer
 			_updateTimer.Start();
 		}
 
-		void _updateTimer_Tick(object sender, EventArgs e)
+		private void _updateTimer_Tick(object sender, EventArgs e)
 		{
 			refreshApps();
 			updateListView();
 		}
 
-		void AllApps_Load(object sender, System.EventArgs e)
+		private void AllApps_Load(object sender, System.EventArgs e)
 		{
 			refreshApps();
 			updateListView();
@@ -61,12 +61,12 @@ namespace Fullscreenizer
 			_addedClasses = true;
 		}
 
-		void txt_filter_TextChanged(object sender, EventArgs e)
+		private void txt_filter_TextChanged(object sender, EventArgs e)
 		{
 			updateListView();
 		}
 
-		void txt_filter_KeyDown(object sender, KeyEventArgs e)
+		private void txt_filter_KeyDown(object sender, KeyEventArgs e)
 		{
 			if( e.KeyCode == Keys.Escape )
 			{
@@ -74,7 +74,7 @@ namespace Fullscreenizer
 			}
 		}
 
-		void refreshApps()
+		private void refreshApps()
 		{
 			List<IntPtr> visibleWindows = Win32.getVisibleWindows(true);
 			foreach( IntPtr hwnd in visibleWindows )
@@ -110,7 +110,7 @@ namespace Fullscreenizer
 			}
 		}
 
-		void updateListView()
+		private void updateListView()
 		{
 			lv_apps.BeginUpdate();
 
@@ -157,7 +157,7 @@ namespace Fullscreenizer
 			lv_apps.EndUpdate();
 		}
 
-		void rebuildImageList()
+		private void rebuildImageList()
 		{
 			_windowImages.Images.Clear();
 			foreach( ListViewItem item in lv_apps.Items )
