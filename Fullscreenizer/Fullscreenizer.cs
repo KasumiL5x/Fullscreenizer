@@ -349,61 +349,63 @@ namespace Fullscreenizer
 
 		void buildKeysList()
 		{
-			List<Keys> keyDict = new List<Keys>();
-			keyDict.Add(Keys.A);
-			keyDict.Add(Keys.B);
-			keyDict.Add(Keys.C);
-			keyDict.Add(Keys.D);
-			keyDict.Add(Keys.E);
-			keyDict.Add(Keys.F);
-			keyDict.Add(Keys.G);
-			keyDict.Add(Keys.H);
-			keyDict.Add(Keys.I);
-			keyDict.Add(Keys.J);
-			keyDict.Add(Keys.K);
-			keyDict.Add(Keys.L);
-			keyDict.Add(Keys.M);
-			keyDict.Add(Keys.N);
-			keyDict.Add(Keys.O);
-			keyDict.Add(Keys.P);
-			keyDict.Add(Keys.Q);
-			keyDict.Add(Keys.R);
-			keyDict.Add(Keys.S);
-			keyDict.Add(Keys.T);
-			keyDict.Add(Keys.U);
-			keyDict.Add(Keys.V);
-			keyDict.Add(Keys.W);
-			keyDict.Add(Keys.X);
-			keyDict.Add(Keys.Y);
-			keyDict.Add(Keys.Z);
-			keyDict.Add(Keys.D1);
-			keyDict.Add(Keys.D2);
-			keyDict.Add(Keys.D3);
-			keyDict.Add(Keys.D4);
-			keyDict.Add(Keys.D5);
-			keyDict.Add(Keys.D6);
-			keyDict.Add(Keys.D7);
-			keyDict.Add(Keys.D8);
-			keyDict.Add(Keys.D9);
-			keyDict.Add(Keys.D0);
-			keyDict.Add(Keys.F1);
-			keyDict.Add(Keys.F2);
-			keyDict.Add(Keys.F3);
-			keyDict.Add(Keys.F4);
-			keyDict.Add(Keys.F5);
-			keyDict.Add(Keys.F6);
-			keyDict.Add(Keys.F7);
-			keyDict.Add(Keys.F8);
-			keyDict.Add(Keys.F9);
-			keyDict.Add(Keys.F10);
-			keyDict.Add(Keys.F11);
-			keyDict.Add(Keys.F12);
-			keyDict.Add(Keys.Insert);
-			keyDict.Add(Keys.Delete);
-			keyDict.Add(Keys.Home);
-			keyDict.Add(Keys.End);
-			keyDict.Add(Keys.PageUp);
-			keyDict.Add(Keys.PageDown);
+			List<Keys> keyDict = new List<Keys>
+			{
+				Keys.A,
+				Keys.B,
+				Keys.C,
+				Keys.D,
+				Keys.E,
+				Keys.F,
+				Keys.G,
+				Keys.H,
+				Keys.I,
+				Keys.J,
+				Keys.K,
+				Keys.L,
+				Keys.M,
+				Keys.N,
+				Keys.O,
+				Keys.P,
+				Keys.Q,
+				Keys.R,
+				Keys.S,
+				Keys.T,
+				Keys.U,
+				Keys.V,
+				Keys.W,
+				Keys.X,
+				Keys.Y,
+				Keys.Z,
+				Keys.D1,
+				Keys.D2,
+				Keys.D3,
+				Keys.D4,
+				Keys.D5,
+				Keys.D6,
+				Keys.D7,
+				Keys.D8,
+				Keys.D9,
+				Keys.D0,
+				Keys.F1,
+				Keys.F2,
+				Keys.F3,
+				Keys.F4,
+				Keys.F5,
+				Keys.F6,
+				Keys.F7,
+				Keys.F8,
+				Keys.F9,
+				Keys.F10,
+				Keys.F11,
+				Keys.F12,
+				Keys.Insert,
+				Keys.Delete,
+				Keys.Home,
+				Keys.End,
+				Keys.PageUp,
+				Keys.PageDown
+			};
 			cb_fullscreenizeHotkeyKey.DataSource = new BindingSource(keyDict, null);
 			cb_lockCursorHotkeyKey.DataSource = new BindingSource(keyDict, null);
 		}
@@ -722,11 +724,7 @@ namespace Fullscreenizer
 				Win32.getWindowRect(hwnd, out state.initialX, out state.initialY, out state.initialWidth, out state.initialHeight);
 
 				// Get the size and position of the monitor the window is open on.
-				int monitorX = 0;
-				int monitorY = 0;
-				int monitorWidth = 0;
-				int monitorHeight = 0;
-				Win32.getWindowMonitorSize(hwnd, out monitorX, out monitorY, out monitorWidth, out monitorHeight);
+				Win32.getWindowMonitorSize(hwnd, out int monitorX, out int monitorY, out int monitorWidth, out int monitorHeight);
 				// Make the window borderless.
 				Win32.makeWindowBorderless(hwnd);
 
