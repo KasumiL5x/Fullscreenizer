@@ -207,6 +207,11 @@ namespace Fullscreenizer
 			_config.MoveWindow = chk_moveWindow.Checked;
 		}
 
+		private void chk_lockCursor_CheckedChanged(object sender, EventArgs e)
+		{
+			_config.LockCursor = chk_lockCursor.Checked;
+		}
+
 		void chk_minimizeToTray_CheckedChanged(object sender, EventArgs e)
 		{
 			_config.MinimizeToTray = chk_minimizeToTray.Checked;
@@ -257,6 +262,7 @@ namespace Fullscreenizer
 			// Read the options.
 			chk_scaleToFit.Checked     = _config.ScaleWindow;
 			chk_moveWindow.Checked     = _config.MoveWindow;
+			chk_lockCursor.Checked     = _config.LockCursor;
 			chk_minimizeToTray.Checked = _config.MinimizeToTray;
 		}
 
@@ -634,5 +640,5 @@ namespace Fullscreenizer
 				notifyIcon.Visible = false;
 			}
 		}
-	}
+    }
 }

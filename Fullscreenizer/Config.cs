@@ -11,10 +11,11 @@ namespace Fullscreenizer
 	 *     | int    | default to 0     | Bit flag for the key of the hotkey.
 	 *     | bool   | default to true  | Scale the window when fullscreenizing.
 	 *     | bool   | default to true  | Move the window to the top-left when fullscreenizing.
+	 *     | bool   | default to true  | Lock the cursor to the application's window.
 	 *     | bool   | default to true  | Minimize the application to tray.
 	 *     | string | default to none  | All following lines are read as window classes to look for.
 	 */
-	public class Config
+    public class Config
 	{
 		private const string CONFIG_FILE = "fullscreenizer.cfg";
 
@@ -53,6 +54,13 @@ namespace Fullscreenizer
 			set{ _moveWindow = value; }
 		}
 
+		private bool _lockCursor;
+		public bool LockCursor
+		{
+			get{ return _lockCursor; }
+			set{ _lockCursor = value; }
+		}
+
 		private bool _minimizeToTray;
 		public bool MinimizeToTray
 		{
@@ -74,6 +82,7 @@ namespace Fullscreenizer
 			_keyFlag = Keys.Home;
 			_scaleWindow = true;
 			_moveWindow = true;
+			_lockCursor = true;
 			_minimizeToTray = true;
 			_classes.Clear();
 		}
@@ -155,7 +164,13 @@ namespace Fullscreenizer
 			{
 				return false;
 			}
-			
+
+			// Read lock cursor.
+			if( ((line = sr.ReadLine()) == null) || !bool.TryParse(line, out _lockCursor) )
+			{
+				return false;
+			}
+
 			// Read minimize to tray.
 			if( ((line = sr.ReadLine()) == null) || !bool.TryParse(line, out _minimizeToTray) )
 			{
@@ -190,6 +205,7 @@ namespace Fullscreenizer
 			sw.WriteLine(((int)_keyFlag).ToString());
 			sw.WriteLine(_scaleWindow.ToString());
 			sw.WriteLine(_moveWindow.ToString());
+			sw.WriteLine(_lockCursor.ToString());
 			sw.WriteLine(_minimizeToTray.ToString());
 			sw.Close();
 		}
@@ -202,6 +218,7 @@ namespace Fullscreenizer
 			sw.WriteLine(((int)_keyFlag).ToString());
 			sw.WriteLine(_scaleWindow.ToString());
 			sw.WriteLine(_moveWindow.ToString());
+			sw.WriteLine(_lockCursor.ToString());
 			sw.WriteLine(_minimizeToTray.ToString());
 			foreach( string curr in _classes )
 			{
