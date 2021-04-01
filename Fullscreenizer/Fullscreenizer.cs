@@ -77,74 +77,145 @@ namespace Fullscreenizer
 			}
 		}
 
-		void chk_hotkeyModCtrl_Click(object sender, EventArgs e)
-		{
-			if( !chk_hotkeyModShift.Checked && !chk_hotkeyModAlt.Checked )
-			{
-				return;
-			}
-
-			chk_hotkeyModCtrl.Checked = !chk_hotkeyModCtrl.Checked;
-			updateModifierFlags();
-			if( _config.HotkeyActive )
-			{
-				enableHotkey();
-			}
-		}
-
-		void chk_hotkeyModShift_Click(object sender, EventArgs e)
-		{
-			if( !chk_hotkeyModCtrl.Checked && !chk_hotkeyModAlt.Checked )
-			{
-				return;
-			}
-
-			chk_hotkeyModShift.Checked = !chk_hotkeyModShift.Checked;
-			updateModifierFlags();
-			if( _config.HotkeyActive )
-			{
-				enableHotkey();
-			}
-		}
-
-		void chk_hotkeyModAlt_Click(object sender, EventArgs e)
-		{
-			if( !chk_hotkeyModCtrl.Checked && !chk_hotkeyModShift.Checked )
-			{
-				return;
-			}
-
-			chk_hotkeyModAlt.Checked = !chk_hotkeyModAlt.Checked;
-			updateModifierFlags();
-			if( _config.HotkeyActive )
-			{
-				enableHotkey();
-			}
-		}
-
-		void cb_hotkeyKey_SelectionChangeCommitted(object sender, EventArgs e)
-		{
-			_config.KeyFlags = (Keys)cb_hotkeyKey.SelectedItem;
-			if( _config.HotkeyActive )
-			{
-				enableHotkey();
-			}
-		}
-
-		void chk_enableHotkey_Click(object sender, EventArgs e)
+		void chk_fullscreenizeEnableHotkey_Click(object sender, EventArgs e)
 		{
 			// Flip the hotkey.
-			chk_enableHotkey.Checked = !chk_enableHotkey.Checked;
+			chk_fullscreenizeEnableHotkey.Checked = !chk_fullscreenizeEnableHotkey.Checked;
 			// Update the config.
-			_config.HotkeyActive = chk_enableHotkey.Checked;
+			_config.FullscreenizeHotkeyActive = chk_fullscreenizeEnableHotkey.Checked;
 			// Enable or disable based on status.
-			if( chk_enableHotkey.Checked )
+			if (chk_fullscreenizeEnableHotkey.Checked)
 			{
 				enableHotkey();
 			}
 			else
 			{
 				disableHotkey();
+			}
+		}
+
+		void chk_fullscreenizeHotkeyModCtrl_Click(object sender, EventArgs e)
+		{
+			if( !chk_fullscreenizeHotkeyModShift.Checked && !chk_fullscreenizeHotkeyModAlt.Checked )
+			{
+				return;
+			}
+
+			chk_fullscreenizeHotkeyModCtrl.Checked = !chk_fullscreenizeHotkeyModCtrl.Checked;
+			updateModifierFlags();
+			if( _config.FullscreenizeHotkeyActive )
+			{
+				enableHotkey();
+			}
+		}
+
+		void chk_fullscreenizeHotkeyModShift_Click(object sender, EventArgs e)
+		{
+			if( !chk_fullscreenizeHotkeyModCtrl.Checked && !chk_fullscreenizeHotkeyModAlt.Checked )
+			{
+				return;
+			}
+
+			chk_fullscreenizeHotkeyModShift.Checked = !chk_fullscreenizeHotkeyModShift.Checked;
+			updateModifierFlags();
+			if( _config.FullscreenizeHotkeyActive )
+			{
+				enableHotkey();
+			}
+		}
+
+		void chk_fullscreenizeHotkeyModAlt_Click(object sender, EventArgs e)
+		{
+			if( !chk_fullscreenizeHotkeyModCtrl.Checked && !chk_fullscreenizeHotkeyModShift.Checked )
+			{
+				return;
+			}
+
+			chk_fullscreenizeHotkeyModAlt.Checked = !chk_fullscreenizeHotkeyModAlt.Checked;
+			updateModifierFlags();
+			if( _config.FullscreenizeHotkeyActive )
+			{
+				enableHotkey();
+			}
+		}
+
+		void cb_fullscreenizeHotkeyKey_SelectionChangeCommitted(object sender, EventArgs e)
+		{
+			_config.FullscreenizeKeyFlags = (Keys)cb_fullscreenizeHotkeyKey.SelectedItem;
+			if (_config.FullscreenizeHotkeyActive)
+			{
+				enableHotkey();
+			}
+		}
+
+		private void chk_lockCursorEnableHotkey_Click(object sender, EventArgs e)
+		{
+			// Flip the hotkey.
+			chk_lockCursorEnableHotkey.Checked = !chk_lockCursorEnableHotkey.Checked;
+			// Update the config.
+			_config.LockCursorHotkeyActive = chk_lockCursorEnableHotkey.Checked;
+			// Enable or disable based on status.
+			if (chk_lockCursorEnableHotkey.Checked)
+			{
+				enableHotkey();
+			}
+			else
+			{
+				disableHotkey();
+			}
+		}
+
+		private void chk_lockCursorHotkeyModCtrl_Click(object sender, EventArgs e)
+		{
+			if (!chk_lockCursorHotkeyModShift.Checked && !chk_lockCursorHotkeyModAlt.Checked)
+			{
+				return;
+			}
+
+			chk_lockCursorHotkeyModCtrl.Checked = !chk_lockCursorHotkeyModCtrl.Checked;
+			updateModifierFlags();
+			if (_config.LockCursorHotkeyActive)
+			{
+				enableHotkey();
+			}
+		}
+
+		private void chk_lockCursorHotkeyModShift_Click(object sender, EventArgs e)
+		{
+			if (!chk_lockCursorHotkeyModCtrl.Checked && !chk_lockCursorHotkeyModAlt.Checked)
+			{
+				return;
+			}
+
+			chk_lockCursorHotkeyModShift.Checked = !chk_lockCursorHotkeyModShift.Checked;
+			updateModifierFlags();
+			if (_config.LockCursorHotkeyActive)
+			{
+				enableHotkey();
+			}
+		}
+
+		private void chk_lockCursorHotkeyModAlt_Click(object sender, EventArgs e)
+		{
+			if (!chk_lockCursorHotkeyModCtrl.Checked && !chk_lockCursorHotkeyModShift.Checked)
+			{
+				return;
+			}
+
+			chk_lockCursorHotkeyModAlt.Checked = !chk_lockCursorHotkeyModAlt.Checked;
+			updateModifierFlags();
+			if (_config.LockCursorHotkeyActive)
+			{
+				enableHotkey();
+			}
+		}
+
+		private void cb_lockCursorHotkeyKey_SelectionChangeCommitted(object sender, EventArgs e)
+		{
+			_config.LockCursorKeyFlags = (Keys)cb_fullscreenizeHotkeyKey.SelectedItem;
+			if( _config.LockCursorHotkeyActive )
+			{
+				enableHotkey();
 			}
 		}
 
@@ -245,17 +316,27 @@ namespace Fullscreenizer
 			}
 
 			// Read the modifier bit flag and enable checkboxes as required.
-			chk_hotkeyModCtrl.Checked  = ((_config.ModifierFlags & Modifier.Ctrl) != 0);
-			chk_hotkeyModShift.Checked = ((_config.ModifierFlags & Modifier.Shift) != 0);
-			chk_hotkeyModAlt.Checked   = ((_config.ModifierFlags & Modifier.Alt) != 0);
+			chk_fullscreenizeHotkeyModCtrl.Checked  = ((_config.FullscreenizeModifierFlags & Modifier.Ctrl) != 0);
+			chk_fullscreenizeHotkeyModShift.Checked = ((_config.FullscreenizeModifierFlags & Modifier.Shift) != 0);
+			chk_fullscreenizeHotkeyModAlt.Checked   = ((_config.FullscreenizeModifierFlags & Modifier.Alt) != 0);
+			chk_lockCursorHotkeyModCtrl.Checked     = ((_config.LockCursorModifierFlags & Modifier.Ctrl) != 0);
+			chk_lockCursorHotkeyModShift.Checked    = ((_config.LockCursorModifierFlags & Modifier.Shift) != 0);
+			chk_lockCursorHotkeyModAlt.Checked      = ((_config.LockCursorModifierFlags & Modifier.Alt) != 0);
 
-			// Read the key bit flag and set the combobox as required.
-			cb_hotkeyKey.SelectedItem = _config.KeyFlags;
+			// Read the key bit flag and set the comboboxes as required.
+			cb_fullscreenizeHotkeyKey.SelectedItem = _config.FullscreenizeKeyFlags;
+			cb_lockCursorHotkeyKey.SelectedItem = _config.LockCursorKeyFlags;
 
 			// Read the active state of the hotkey and create the hotkey if required.
-			if( _config.HotkeyActive )
+			if ( _config.FullscreenizeHotkeyActive )
 			{
-				chk_enableHotkey.Checked = true;
+				chk_fullscreenizeEnableHotkey.Checked = true;
+				enableHotkey();
+			}
+
+			if (_config.FullscreenizeHotkeyActive)
+			{
+				chk_lockCursorEnableHotkey.Checked = true;
 				enableHotkey();
 			}
 
@@ -323,23 +404,38 @@ namespace Fullscreenizer
 			keyDict.Add(Keys.End);
 			keyDict.Add(Keys.PageUp);
 			keyDict.Add(Keys.PageDown);
-			cb_hotkeyKey.DataSource = new BindingSource(keyDict, null);
+			cb_fullscreenizeHotkeyKey.DataSource = new BindingSource(keyDict, null);
+			cb_lockCursorHotkeyKey.DataSource = new BindingSource(keyDict, null);
 		}
 
 		void updateModifierFlags()
 		{
-			_config.ModifierFlags = Modifier.None;
-			if( chk_hotkeyModCtrl.Checked )
+			_config.FullscreenizeModifierFlags = Modifier.None;
+			if( chk_fullscreenizeHotkeyModCtrl.Checked )
 			{
-				_config.ModifierFlags |= Modifier.Ctrl;
+				_config.FullscreenizeModifierFlags |= Modifier.Ctrl;
 			}
-			if( chk_hotkeyModShift.Checked )
+			if( chk_fullscreenizeHotkeyModShift.Checked )
 			{
-				_config.ModifierFlags |= Modifier.Shift;
+				_config.FullscreenizeModifierFlags |= Modifier.Shift;
 			}
-			if( chk_hotkeyModAlt.Checked )
+			if( chk_fullscreenizeHotkeyModAlt.Checked )
 			{
-				_config.ModifierFlags |= Modifier.Alt;
+				_config.FullscreenizeModifierFlags |= Modifier.Alt;
+			}
+
+			_config.LockCursorModifierFlags = Modifier.None;
+			if( chk_lockCursorHotkeyModCtrl.Checked )
+			{
+				_config.LockCursorModifierFlags |= Modifier.Ctrl;
+			}
+			if( chk_lockCursorHotkeyModShift.Checked )
+			{
+				_config.LockCursorModifierFlags |= Modifier.Shift;
+			}
+			if( chk_lockCursorHotkeyModAlt.Checked )
+			{
+				_config.LockCursorModifierFlags |= Modifier.Alt;
 			}
 		}
 
@@ -358,16 +454,16 @@ namespace Fullscreenizer
 			{
 				_currHeldModifier |= Modifier.Alt;
 			}
-			else if( e.KeyCode == _config.KeyFlags )
+			else if( e.KeyCode == _config.FullscreenizeKeyFlags || e.KeyCode == _config.LockCursorKeyFlags )
 			{
 				// Also for the key, too.
 				_currHeldKey = e.KeyCode;
 			}
 
 			// Do we care about the modifiers?
-			bool careAboutCtrl = (_config.ModifierFlags & Modifier.Ctrl) != 0;
-			bool careAboutShift = (_config.ModifierFlags & Modifier.Shift) != 0;
-			bool careAboutAlt = (_config.ModifierFlags & Modifier.Alt) != 0;
+			bool careAboutCtrl = (_config.FullscreenizeModifierFlags & Modifier.Ctrl) != 0 || (_config.LockCursorModifierFlags & Modifier.Ctrl) != 0;
+			bool careAboutShift = (_config.FullscreenizeModifierFlags & Modifier.Shift) != 0 || (_config.LockCursorModifierFlags & Modifier.Shift) != 0;
+			bool careAboutAlt = (_config.FullscreenizeModifierFlags & Modifier.Alt) != 0 || (_config.LockCursorModifierFlags & Modifier.Alt) != 0;
 			// The actual currently held values.
 			bool ctrlPressed = (_currHeldModifier & Modifier.Ctrl) != 0;
 			bool shiftPressed = (_currHeldModifier & Modifier.Shift) != 0;
@@ -379,7 +475,7 @@ namespace Fullscreenizer
 			bool altOk = (careAboutAlt && altPressed) || (!careAboutAlt);
 
 			// If all are OK and the held key matches out desired key...
-			if( ctrlOk && shiftOk && altOk && (_currHeldKey == _config.KeyFlags) )
+			if( ctrlOk && shiftOk && altOk && (_currHeldKey == _config.FullscreenizeKeyFlags) )
 			{
 				IntPtr foregroundWindow = Win32.getForegroundWindow();
 				if( foregroundWindow == IntPtr.Zero )
@@ -406,7 +502,7 @@ namespace Fullscreenizer
 			{
 				_currHeldModifier = _currHeldModifier & ~Modifier.Alt;
 			}
-			else if( e.KeyCode == _config.KeyFlags )
+			else if( e.KeyCode == _config.FullscreenizeKeyFlags )
 			{
 				// Same for the keycode.
 				_currHeldKey = _currHeldKey & ~e.KeyCode;
@@ -418,26 +514,33 @@ namespace Fullscreenizer
 			_hook.hook();
 			_hook.removeAllKeys();
 
-			if( (_config.ModifierFlags & Modifier.Ctrl) != 0 )
+			if( (_config.FullscreenizeModifierFlags & Modifier.Ctrl) != 0 || (_config.LockCursorModifierFlags & Modifier.Ctrl) != 0 )
 			{
 				_hook.addKey(Keys.LControlKey);
 				_hook.addKey(Keys.RControlKey);
 			}
-			if( (_config.ModifierFlags & Modifier.Shift) != 0 )
+			if( (_config.FullscreenizeModifierFlags & Modifier.Shift) != 0 || (_config.LockCursorModifierFlags & Modifier.Shift) != 0 )
 			{
 				_hook.addKey(Keys.LShiftKey);
 				_hook.addKey(Keys.RShiftKey);
 			}
-			if( (_config.ModifierFlags & Modifier.Alt) != 0 )
+			if( (_config.FullscreenizeModifierFlags & Modifier.Alt) != 0 || (_config.LockCursorModifierFlags & Modifier.Alt) != 0 )
 			{
 				_hook.addKey(Keys.LMenu);
 				_hook.addKey(Keys.RMenu);
 			}
 
-			_hook.addKey(_config.KeyFlags);
-		}
+			if( _config.FullscreenizeHotkeyActive )
+			{
+				_hook.addKey(_config.FullscreenizeKeyFlags);
+			}
+			if ( _config.LockCursorHotkeyActive )
+			{
+				_hook.addKey(_config.LockCursorKeyFlags);
+			}
+	}
 
-		void disableHotkey()
+	void disableHotkey()
 		{
 			_hook.unhook(); // Doesn't remove keys; just disables.
 		}
@@ -567,8 +670,6 @@ namespace Fullscreenizer
 
 			AppState state = _windowHandles[hwnd];
 
-
-
 			bool isFullscreen = Win32.isWindowFullscreen(hwnd);
 			bool isBorderless = Win32.isWindowBorderlessStyle(hwnd);
 
@@ -640,5 +741,5 @@ namespace Fullscreenizer
 				notifyIcon.Visible = false;
 			}
 		}
-    }
+	}
 }
