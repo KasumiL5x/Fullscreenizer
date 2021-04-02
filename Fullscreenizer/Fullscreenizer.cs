@@ -18,7 +18,6 @@ namespace Fullscreenizer
 		KeyboardHook _hook = new KeyboardHook();
 		Modifier _currHeldModifier = Modifier.None; // Used to check if the user is pressing the correct modifiers.
 		Keys _currHeldKey = Keys.None; // Used to check if the user is pressing the correct key.
-		
 
 		// All states of windows we are tracking.
 		List<AppState> _windowStates = new List<AppState>();
@@ -32,6 +31,8 @@ namespace Fullscreenizer
 		// Timer for allowing a window to be fullscreenized.
 		Timer _canFullscreenizeTimer = new Timer();
 		bool _canFullscreenize = true;
+
+		Rectangle _defaultCursorClip = Cursor.Clip; // Used to check whether the cursor is locked or not
 
 		public Fullscreenizer()
 		{
@@ -79,7 +80,7 @@ namespace Fullscreenizer
 
 		private void chk_fullscreenizeEnableHotkey_CheckedChanged(object sender, EventArgs e)
 		{
-			// Flip the groupbox.
+			// Enable or disable the groupbox.
 			gb_fullscreenizeHotkey.Enabled = chk_fullscreenizeEnableHotkey.Checked;
 			// Update the config.
 			_config.FullscreenizeHotkeyActive = chk_fullscreenizeEnableHotkey.Checked;
@@ -150,7 +151,7 @@ namespace Fullscreenizer
 
 		private void chk_lockCursorEnableHotkey_CheckedChanged(object sender, EventArgs e)
 		{
-			// Flip the hotkey.
+			// Enable or disable the groupbox.
 			gb_lockCursorHotkey.Enabled = chk_lockCursorEnableHotkey.Checked;
 			// Update the config.
 			_config.LockCursorHotkeyActive = chk_lockCursorEnableHotkey.Checked;
@@ -327,7 +328,7 @@ namespace Fullscreenizer
 			cb_fullscreenizeHotkeyKey.SelectedItem = _config.FullscreenizeKeyFlags;
 			cb_lockCursorHotkeyKey.SelectedItem    = _config.LockCursorKeyFlags;
 
-			// Read the active state of the hotkey and create the hotkey if required.
+			// Read the active state of the hotkeys and create the hotkeys if required.
 			if( _config.FullscreenizeHotkeyActive || _config.LockCursorHotkeyActive )
 			{
 				enableHotkey();
@@ -459,18 +460,25 @@ namespace Fullscreenizer
 			}
 
 			// Do we care about the modifiers?
-			bool careAboutCtrl = (_config.FullscreenizeModifierFlags & Modifier.Ctrl) != 0 || (_config.LockCursorModifierFlags & Modifier.Ctrl) != 0;
-			bool careAboutShift = (_config.FullscreenizeModifierFlags & Modifier.Shift) != 0 || (_config.LockCursorModifierFlags & Modifier.Shift) != 0;
-			bool careAboutAlt = (_config.FullscreenizeModifierFlags & Modifier.Alt) != 0 || (_config.LockCursorModifierFlags & Modifier.Alt) != 0;
+			bool fullscreenizeCareAboutCtrl = (_config.FullscreenizeModifierFlags & Modifier.Ctrl) != 0;
+			bool fullscreenizeCareAboutShift = (_config.FullscreenizeModifierFlags & Modifier.Shift) != 0;
+			bool fullscreenizeCareAboutAlt = (_config.FullscreenizeModifierFlags & Modifier.Alt) != 0;
+			bool lockCursorCareAboutCtrl = (_config.LockCursorModifierFlags & Modifier.Ctrl) != 0;
+			bool lockCursorCareAboutShift = (_config.LockCursorModifierFlags & Modifier.Shift) != 0;
+			bool lockCursorCareAboutAlt = (_config.LockCursorModifierFlags & Modifier.Alt) != 0;
+
 			// The actual currently held values.
 			bool ctrlPressed = (_currHeldModifier & Modifier.Ctrl) != 0;
 			bool shiftPressed = (_currHeldModifier & Modifier.Shift) != 0;
 			bool altPressed = (_currHeldModifier & Modifier.Alt) != 0;
 
 			// If we care and it's pressed, or we don't care, it's OK.
-			bool ctrlOk = (careAboutCtrl && ctrlPressed) || (!careAboutCtrl);
-			bool shiftOk = (careAboutShift && shiftPressed) || (!careAboutShift);
-			bool altOk = (careAboutAlt && altPressed) || (!careAboutAlt);
+			bool fullscreenizeCtrlOk = (fullscreenizeCareAboutCtrl && ctrlPressed) || (!fullscreenizeCareAboutCtrl);
+			bool fullscreenizeShiftOk = (fullscreenizeCareAboutShift && shiftPressed) || (!fullscreenizeCareAboutShift);
+			bool fullscreenizeAltOk = (fullscreenizeCareAboutAlt && altPressed) || (!fullscreenizeCareAboutAlt);
+			bool lockCursorCtrlOk = (lockCursorCareAboutCtrl && ctrlPressed) || (!lockCursorCareAboutCtrl);
+			bool lockCursorShiftOk = (lockCursorCareAboutShift && shiftPressed) || (!lockCursorCareAboutShift);
+			bool lockCursorAltOk = (lockCursorCareAboutAlt && altPressed) || (!lockCursorCareAboutAlt);
 
 			IntPtr foregroundWindow = Win32.getForegroundWindow();
 			if( foregroundWindow == IntPtr.Zero )
@@ -479,24 +487,24 @@ namespace Fullscreenizer
 			}
 
 			// If all are OK and the held key matches out desired key...
-			if( ctrlOk && shiftOk && altOk && (_currHeldKey == _config.FullscreenizeKeyFlags) )
+			if( fullscreenizeCtrlOk && fullscreenizeShiftOk && fullscreenizeAltOk && (_currHeldKey == _config.FullscreenizeKeyFlags) )
 			{
 				fullscreenizeWindow(foregroundWindow);
 			}
 
-			if( ctrlOk && shiftOk && altOk && (_currHeldKey == _config.LockCursorKeyFlags) )
+			if( lockCursorCtrlOk && lockCursorShiftOk && lockCursorAltOk && (_currHeldKey == _config.LockCursorKeyFlags) )
 			{
 				Win32.getWindowRect(foregroundWindow, out int x, out int y, out int width, out int height );
 
-				// The cursor was already locked to the window bounds, unlock it
-				if( Cursor.Clip.Equals(new Rectangle(x, y, width, height)) )
-				{
-					Cursor.Clip = Rectangle.Empty;
-				}
 				// Lock the cursor to the window bounds
-				else
+				if( Cursor.Clip.Equals(_defaultCursorClip) )
 				{
 					Cursor.Clip = new Rectangle(x, y, width, height);
+				}
+				// The cursor was already locked to the window bounds, unlock it
+				else
+				{
+					Cursor.Clip = Rectangle.Empty;
 				}
 			}
 		}
@@ -724,12 +732,6 @@ namespace Fullscreenizer
 				// Make the window borderless.
 				Win32.makeWindowBorderless(hwnd);
 
-				if( chk_lockCursor.Checked )
-				{
-					// Lock the cursor to the window bounds
-					Cursor.Clip = new Rectangle(state.initialX, state.initialY, state.initialWidth, state.initialHeight);
-				}
-
 				if( chk_scaleToFit.Checked && chk_moveWindow.Checked )
 				{
 					// Move the window to the top-left of the monitor and scale it to fill.
@@ -746,6 +748,13 @@ namespace Fullscreenizer
 					Win32.setWindowPos(hwnd, monitorX, monitorY, monitorWidth, monitorHeight, Win32.SetWindowPosFlags.SWP_NOSIZE);
 				}
 				// Otherwise, don't do anything.
+
+				if( chk_lockCursor.Checked )
+				{
+					// Lock the cursor to the window bounds
+					Win32.getWindowRect(hwnd, out int x, out int y, out int width, out int height);
+					Cursor.Clip = new Rectangle(x, y, width, height);
+				}
 			}
 
 			_canFullscreenize = false;
