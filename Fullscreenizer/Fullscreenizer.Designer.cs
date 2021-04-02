@@ -82,7 +82,7 @@
 			// lv_apps
 			// 
 			this.lv_apps.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.ch_title});
+			this.ch_title});
 			this.lv_apps.FullRowSelect = true;
 			this.lv_apps.GridLines = true;
 			this.lv_apps.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
@@ -195,9 +195,9 @@
 			// contextMenuStrip
 			// 
 			this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemShow,
-            this.toolStripSeparator,
-            this.toolStripMenuItemClose});
+			this.toolStripMenuItemShow,
+			this.toolStripSeparator,
+			this.toolStripMenuItemClose});
 			this.contextMenuStrip.Name = "contextMenuStrip";
 			this.contextMenuStrip.Size = new System.Drawing.Size(104, 54);
 			// 
@@ -475,21 +475,21 @@
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
 		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemClose;
 		private System.Windows.Forms.CheckBox chk_minimizeToTray;
-        private System.Windows.Forms.CheckBox chk_lockCursor;
-        private System.Windows.Forms.CheckBox chk_fullscreenizeEnableHotkey;
-        private System.Windows.Forms.GroupBox gb_fullscreenizeHotkeyModifier;
-        private System.Windows.Forms.CheckBox chk_fullscreenizeHotkeyModAlt;
-        private System.Windows.Forms.CheckBox chk_fullscreenizeHotkeyModShift;
-        private System.Windows.Forms.CheckBox chk_fullscreenizeHotkeyModCtrl;
-        private System.Windows.Forms.ComboBox cb_fullscreenizeHotkeyKey;
-        private System.Windows.Forms.GroupBox gb_fullscreenizeHotkey;
-        private System.Windows.Forms.GroupBox gb_lockCursorHotkey;
-        private System.Windows.Forms.ComboBox cb_lockCursorHotkeyKey;
-        private System.Windows.Forms.GroupBox gb_lockCursorHotkeyModifier;
-        private System.Windows.Forms.CheckBox chk_lockCursorHotkeyModAlt;
-        private System.Windows.Forms.CheckBox chk_lockCursorHotkeyModShift;
-        private System.Windows.Forms.CheckBox chk_lockCursorHotkeyModCtrl;
-        private System.Windows.Forms.CheckBox chk_lockCursorEnableHotkey;
-    }
+		private System.Windows.Forms.CheckBox chk_lockCursor;
+		private System.Windows.Forms.CheckBox chk_fullscreenizeEnableHotkey;
+		private System.Windows.Forms.GroupBox gb_fullscreenizeHotkeyModifier;
+		private System.Windows.Forms.CheckBox chk_fullscreenizeHotkeyModAlt;
+		private System.Windows.Forms.CheckBox chk_fullscreenizeHotkeyModShift;
+		private System.Windows.Forms.CheckBox chk_fullscreenizeHotkeyModCtrl;
+		private System.Windows.Forms.ComboBox cb_fullscreenizeHotkeyKey;
+		private System.Windows.Forms.GroupBox gb_fullscreenizeHotkey;
+		private System.Windows.Forms.GroupBox gb_lockCursorHotkey;
+		private System.Windows.Forms.ComboBox cb_lockCursorHotkeyKey;
+		private System.Windows.Forms.GroupBox gb_lockCursorHotkeyModifier;
+		private System.Windows.Forms.CheckBox chk_lockCursorHotkeyModAlt;
+		private System.Windows.Forms.CheckBox chk_lockCursorHotkeyModShift;
+		private System.Windows.Forms.CheckBox chk_lockCursorHotkeyModCtrl;
+		private System.Windows.Forms.CheckBox chk_lockCursorEnableHotkey;
+	}
 }
 
