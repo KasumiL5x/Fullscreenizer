@@ -16,6 +16,7 @@ namespace Fullscreenizer
 
 		Config _config = new Config();
 		KeyboardHook _hook = new KeyboardHook();
+		List<object> _keyDict;
 		Modifier _currHeldModifier = Modifier.None; // Used to check if the user is pressing the correct modifiers.
 		Keys _currHeldKey = Keys.None; // Used to check if the user is pressing the correct key.
 
@@ -43,7 +44,8 @@ namespace Fullscreenizer
 			// Add callbacks to the keyboard hook.
 			_hook.KeyDown += new KeyEventHandler(hotkeyPressed);
 			_hook.KeyUp += new KeyEventHandler(hotkeyReleased);
-			// Build a list of keys for the hotkey key combobox.
+
+			// Build a list of keys for the hotkey key comboboxes.
 			buildKeysList();
 
 			// Parse the config file.
@@ -104,10 +106,7 @@ namespace Fullscreenizer
 
 			chk_fullscreenizeHotkeyModCtrl.Checked = !chk_fullscreenizeHotkeyModCtrl.Checked;
 			updateModifierFlags();
-			if( _config.FullscreenizeHotkeyActive )
-			{
-				enableHotkey();
-			}
+			enableHotkey();
 		}
 
 		private void chk_fullscreenizeHotkeyModShift_Click(object sender, EventArgs e)
@@ -119,10 +118,7 @@ namespace Fullscreenizer
 
 			chk_fullscreenizeHotkeyModShift.Checked = !chk_fullscreenizeHotkeyModShift.Checked;
 			updateModifierFlags();
-			if( _config.FullscreenizeHotkeyActive )
-			{
-				enableHotkey();
-			}
+			enableHotkey();
 		}
 
 		private void chk_fullscreenizeHotkeyModAlt_Click(object sender, EventArgs e)
@@ -134,19 +130,18 @@ namespace Fullscreenizer
 
 			chk_fullscreenizeHotkeyModAlt.Checked = !chk_fullscreenizeHotkeyModAlt.Checked;
 			updateModifierFlags();
-			if( _config.FullscreenizeHotkeyActive )
-			{
-				enableHotkey();
-			}
+			enableHotkey();
 		}
 
 		private void cb_fullscreenizeHotkeyKey_SelectionChangeCommitted(object sender, EventArgs e)
 		{
 			_config.FullscreenizeKeyFlags = (Keys)cb_fullscreenizeHotkeyKey.SelectedItem;
-			if( _config.FullscreenizeHotkeyActive )
-			{
-				enableHotkey();
-			}
+
+			// Make sure the fullscreenize key isn't in the lock cursor combobox
+			cb_lockCursorHotkeyKey.Items.Clear();
+			cb_lockCursorHotkeyKey.Items.AddRange(_keyDict.ToArray());
+			cb_lockCursorHotkeyKey.Items.Remove(_config.FullscreenizeKeyFlags);
+			cb_lockCursorHotkeyKey.SelectedItem = _config.LockCursorKeyFlags;
 		}
 
 		private void chk_lockCursorEnableHotkey_CheckedChanged(object sender, EventArgs e)
@@ -175,10 +170,7 @@ namespace Fullscreenizer
 
 			chk_lockCursorHotkeyModCtrl.Checked = !chk_lockCursorHotkeyModCtrl.Checked;
 			updateModifierFlags();
-			if( _config.LockCursorHotkeyActive )
-			{
-				enableHotkey();
-			}
+			enableHotkey();
 		}
 
 		private void chk_lockCursorHotkeyModShift_Click(object sender, EventArgs e)
@@ -190,10 +182,7 @@ namespace Fullscreenizer
 
 			chk_lockCursorHotkeyModShift.Checked = !chk_lockCursorHotkeyModShift.Checked;
 			updateModifierFlags();
-			if( _config.LockCursorHotkeyActive )
-			{
-				enableHotkey();
-			}
+			enableHotkey();
 		}
 
 		private void chk_lockCursorHotkeyModAlt_Click(object sender, EventArgs e)
@@ -205,19 +194,18 @@ namespace Fullscreenizer
 
 			chk_lockCursorHotkeyModAlt.Checked = !chk_lockCursorHotkeyModAlt.Checked;
 			updateModifierFlags();
-			if( _config.LockCursorHotkeyActive )
-			{
-				enableHotkey();
-			}
+			enableHotkey();
 		}
 
 		private void cb_lockCursorHotkeyKey_SelectionChangeCommitted(object sender, EventArgs e)
 		{
 			_config.LockCursorKeyFlags = (Keys)cb_lockCursorHotkeyKey.SelectedItem;
-			if( _config.LockCursorHotkeyActive )
-			{
-				enableHotkey();
-			}
+
+			// Make sure the lock cursor key isn't in the fullscreenize combobox
+			cb_fullscreenizeHotkeyKey.Items.Clear();
+			cb_fullscreenizeHotkeyKey.Items.AddRange(_keyDict.ToArray());
+			cb_fullscreenizeHotkeyKey.Items.Remove(_config.LockCursorKeyFlags);
+			cb_fullscreenizeHotkeyKey.SelectedItem = _config.FullscreenizeKeyFlags;
 		}
 
 		private void btn_fullscreenizeApp_Click(object sender, EventArgs e)
@@ -327,6 +315,8 @@ namespace Fullscreenizer
 			// Read the key bit flag and set the comboboxes as required.
 			cb_fullscreenizeHotkeyKey.SelectedItem = _config.FullscreenizeKeyFlags;
 			cb_lockCursorHotkeyKey.SelectedItem    = _config.LockCursorKeyFlags;
+			cb_fullscreenizeHotkeyKey.Items.Remove(_config.LockCursorKeyFlags);
+			cb_lockCursorHotkeyKey.Items.Remove(_config.FullscreenizeKeyFlags);
 
 			// Read the active state of the hotkeys and create the hotkeys if required.
 			if( _config.FullscreenizeHotkeyActive || _config.LockCursorHotkeyActive )
@@ -346,7 +336,7 @@ namespace Fullscreenizer
 
 		private void buildKeysList()
 		{
-			List<Keys> keyDict = new List<Keys>
+			_keyDict = new List<object>
 			{
 				Keys.A,
 				Keys.B,
@@ -403,8 +393,9 @@ namespace Fullscreenizer
 				Keys.PageUp,
 				Keys.PageDown
 			};
-			cb_fullscreenizeHotkeyKey.DataSource = new BindingSource(keyDict, null);
-			cb_lockCursorHotkeyKey.DataSource = new BindingSource(keyDict, null);
+
+			cb_fullscreenizeHotkeyKey.Items.AddRange(_keyDict.ToArray());
+			cb_lockCursorHotkeyKey.Items.AddRange(_keyDict.ToArray());
 		}
 
 		private void updateModifierFlags()
@@ -764,9 +755,7 @@ namespace Fullscreenizer
 		{
 			if( e.Button == MouseButtons.Left )
 			{
-				Show();
-				WindowState = FormWindowState.Normal;
-				notifyIcon.Visible = false;
+				toolStripMenuItemShow_Click(null, null);
 			}
 		}
 	}

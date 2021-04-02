@@ -106,7 +106,7 @@ namespace Fullscreenizer
 			_fullscreenizeKeyFlags = Keys.Home;
 			_lockCursorHotkeyActive = false;
 			_lockCursorModifierFlags = Modifier.Ctrl;
-			_lockCursorKeyFlags = Keys.Home;
+			_lockCursorKeyFlags = Keys.End;
 			_scaleWindow = true;
 			_moveWindow = true;
 			_lockCursor = true;
@@ -208,11 +208,17 @@ namespace Fullscreenizer
 			_lockCursorKeyFlags = (Keys)tmpKey;
 
 			// If no modifier or no key is provided, fail.
-			if(_lockCursorModifierFlags == Modifier.None || _lockCursorKeyFlags == 0 )
+			if( _lockCursorModifierFlags == Modifier.None || _lockCursorKeyFlags == 0 )
 			{
 				return false;
 			}
-			
+
+			// If the lock cursor key is the same than the fullscreenize key, fail.
+			if( _lockCursorKeyFlags == _fullscreenizeKeyFlags)
+			{
+				return false;
+			}
+
 			return true;
 		}
 
