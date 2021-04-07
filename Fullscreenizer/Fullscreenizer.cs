@@ -682,8 +682,6 @@ namespace Fullscreenizer
 				return;
 			}
 
-			AppState state = _windowHandles[hwnd];
-
 			bool isFullscreen = Win32.isWindowFullscreen(hwnd);
 			bool isBorderless = Win32.isWindowBorderlessStyle(hwnd);
 
@@ -693,6 +691,8 @@ namespace Fullscreenizer
 			{
 				return;
 			}
+
+			AppState state = _windowHandles[hwnd];
 
 			// Used to check for fullscreen here, too, but now we allow for no scaling, so don't check it.
 			if( isBorderless )
@@ -745,6 +745,13 @@ namespace Fullscreenizer
 				{
 					lockCursor(hwnd);
 				}
+			}
+
+			// Some apps take time to become borderless and may stop responding to input so we make sure to clear held keys
+			if( _hook.isKeyDown((Keys)_config.FullscreenizeKeyFlags) )
+			{
+				_currHeldModifier = Modifier.None;
+				_currHeldKey = Keys.None;
 			}
 
 			_canFullscreenize = false;
