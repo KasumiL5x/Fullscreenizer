@@ -485,18 +485,7 @@ namespace Fullscreenizer
 
 			if( lockCursorCtrlOk && lockCursorShiftOk && lockCursorAltOk && (_currHeldKey == _config.LockCursorKeyFlags) )
 			{
-				Win32.getWindowRect(foregroundWindow, out int x, out int y, out int width, out int height );
-
-				// Lock the cursor to the window bounds
-				if( Cursor.Clip.Equals(_defaultCursorClip) )
-				{
-					Cursor.Clip = new Rectangle(x, y, width, height);
-				}
-				// The cursor was already locked to the window bounds, unlock it
-				else
-				{
-					Cursor.Clip = Rectangle.Empty;
-				}
+				lockCursor(foregroundWindow);
 			}
 		}
 
@@ -708,7 +697,7 @@ namespace Fullscreenizer
 				Win32.setWindowPos(hwnd, state.initialX, state.initialY, state.initialWidth, state.initialHeight, Win32.SetWindowPosFlags.SWP_FRAMECHANGED);
 
 				// Unlock the cursor
-				Cursor.Clip = Rectangle.Empty;
+				Cursor.Clip = _defaultCursorClip;
 			}
 			else
 			{
@@ -742,13 +731,32 @@ namespace Fullscreenizer
 
 				if( chk_lockCursor.Checked )
 				{
-					// Lock the cursor to the window bounds
-					Win32.getWindowRect(hwnd, out int x, out int y, out int width, out int height);
-					Cursor.Clip = new Rectangle(x, y, width, height);
+					lockCursor(hwnd);
 				}
 			}
 
 			_canFullscreenize = false;
+		}
+
+		private void lockCursor( IntPtr hwnd )
+		{
+			if(!_windowHandles.ContainsKey(hwnd))
+			{
+				return;
+			}
+
+			Win32.getWindowRect(hwnd, out int x, out int y, out int width, out int height);
+
+			// Lock the cursor to the window bounds
+			if(Cursor.Clip.Equals(_defaultCursorClip))
+			{
+				Cursor.Clip = new Rectangle(x, y, width, height);
+			}
+			// The cursor was already locked to the window bounds, unlock it
+			else
+			{
+				Cursor.Clip = _defaultCursorClip;
+			}
 		}
 
 		private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
