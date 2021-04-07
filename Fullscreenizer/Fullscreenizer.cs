@@ -544,7 +544,19 @@ namespace Fullscreenizer
 
 		private void disableHotkey()
 		{
-			_hook.unhook(); // Doesn't remove keys; just disables.
+			if( !_config.FullscreenizeHotkeyActive )
+			{
+				_hook.removeKey(_config.FullscreenizeKeyFlags);
+			}
+			if( !_config.LockCursorHotkeyActive )
+			{
+				_hook.removeKey(_config.LockCursorKeyFlags);
+			}
+
+			if( !_config.FullscreenizeHotkeyActive && !_config.LockCursorHotkeyActive )
+			{
+				_hook.unhook(); // Doesn't remove keys; just disables.
+			}
 		}
 
 		private void refreshApps()
