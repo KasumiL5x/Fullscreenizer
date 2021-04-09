@@ -61,6 +61,12 @@ namespace Fullscreenizer
 			_addedClasses = true;
 		}
 
+		private void lv_apps_DoubleClick(object sender, EventArgs e)
+		{
+			btn_addApp.PerformClick();
+			Close();
+		}
+
 		private void txt_filter_TextChanged(object sender, EventArgs e)
 		{
 			updateListView();

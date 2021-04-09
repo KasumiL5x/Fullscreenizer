@@ -82,7 +82,7 @@
 			// lv_apps
 			// 
 			this.lv_apps.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-			this.ch_title});
+            this.ch_title});
 			this.lv_apps.FullRowSelect = true;
 			this.lv_apps.GridLines = true;
 			this.lv_apps.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
@@ -96,6 +96,7 @@
 			this.lv_apps.TabStop = false;
 			this.lv_apps.UseCompatibleStateImageBehavior = false;
 			this.lv_apps.View = System.Windows.Forms.View.Details;
+			this.lv_apps.DoubleClick += new System.EventHandler(this.lv_apps_DoubleClick);
 			// 
 			// ch_title
 			// 
@@ -195,9 +196,9 @@
 			// contextMenuStrip
 			// 
 			this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.toolStripMenuItemShow,
-			this.toolStripSeparator,
-			this.toolStripMenuItemClose});
+            this.toolStripMenuItemShow,
+            this.toolStripSeparator,
+            this.toolStripMenuItemClose});
 			this.contextMenuStrip.Name = "contextMenuStrip";
 			this.contextMenuStrip.Size = new System.Drawing.Size(104, 54);
 			// 

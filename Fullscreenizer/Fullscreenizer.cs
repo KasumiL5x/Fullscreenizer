@@ -282,6 +282,19 @@ namespace Fullscreenizer
 			System.Diagnostics.Process.Start("https://github.com/KasumiL5x/Fullscreenizer");
 		}
 
+		private void lv_apps_DoubleClick(object sender, EventArgs e)
+		{
+			btn_removeApp.PerformClick();
+		}
+
+		private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
+		{
+			if (e.Button == MouseButtons.Left)
+			{
+				toolStripMenuItemShow_Click(null, null);
+			}
+		}
+
 		private void toolStripMenuItemShow_Click(object sender, EventArgs e)
 		{
 			Show();
@@ -775,14 +788,6 @@ namespace Fullscreenizer
 			else
 			{
 				Cursor.Clip = _defaultCursorClip;
-			}
-		}
-
-		private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
-		{
-			if( e.Button == MouseButtons.Left )
-			{
-				toolStripMenuItemShow_Click(null, null);
 			}
 		}
 	}
