@@ -44,8 +44,8 @@
 			this.lv_apps.FullRowSelect = true;
 			this.lv_apps.GridLines = true;
 			this.lv_apps.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+			this.lv_apps.HideSelection = false;
 			this.lv_apps.Location = new System.Drawing.Point(6, 14);
-			this.lv_apps.MultiSelect = false;
 			this.lv_apps.Name = "lv_apps";
 			this.lv_apps.Size = new System.Drawing.Size(328, 180);
 			this.lv_apps.Sorting = System.Windows.Forms.SortOrder.Ascending;

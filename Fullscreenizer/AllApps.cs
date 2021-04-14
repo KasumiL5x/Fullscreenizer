@@ -51,11 +51,13 @@ namespace Fullscreenizer
 				return;
 			}
 
-			ListViewItem item = lv_apps.SelectedItems[0];
-			AppState state = _windowHandles[(IntPtr)item.Tag];
-			if( !_config.Classes.Contains(state.className) )
+			foreach (ListViewItem item in lv_apps.SelectedItems)
 			{
-				_config.Classes.Add(state.className);
+				AppState state = _windowHandles[(IntPtr)item.Tag];
+				if( !_config.Classes.Contains(state.className) )
+				{
+					_config.Classes.Add(state.className);
+				}
 			}
 
 			_addedClasses = true;

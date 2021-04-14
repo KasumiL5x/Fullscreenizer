@@ -227,9 +227,11 @@ namespace Fullscreenizer
 				return;
 			}
 
-			ListViewItem item = lv_apps.SelectedItems[0];
-			AppState state = _windowHandles[(IntPtr)item.Tag];
-			_config.Classes.Remove(state.className);
+			foreach (ListViewItem item in lv_apps.SelectedItems)
+			{
+				AppState state = _windowHandles[(IntPtr)item.Tag];
+				_config.Classes.Remove(state.className);
+			}
 
 			refreshApps();
 			updateListView();
@@ -289,7 +291,7 @@ namespace Fullscreenizer
 
 		private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
 		{
-			if (e.Button == MouseButtons.Left)
+			if( e.Button == MouseButtons.Left )
 			{
 				toolStripMenuItemShow_Click(null, null);
 			}
