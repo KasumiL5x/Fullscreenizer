@@ -124,8 +124,6 @@ namespace Fullscreenizer
 		[DllImport("user32.dll")]
 		static extern bool GetMonitorInfo(IntPtr hMonitor, ref MONITORINFO lpmi);
 
-
-
 		public static bool enumDesktopWindows( EnumDesktopWindowsDelegate proc )
 		{
 			return EnumDesktopWindows(IntPtr.Zero, proc, IntPtr.Zero);
@@ -292,22 +290,13 @@ namespace Fullscreenizer
 
 		public static bool isWindowFullscreen( IntPtr hwnd )
 		{
-			int monitorX = 0;
-			int monitorY = 0;
-			int monitorWidth = 0;
-			int monitorHeight = 0;
-			getWindowMonitorSize(hwnd, out monitorX, out monitorY, out monitorWidth, out monitorHeight);
-
-			int windowX = 0;
-			int windowY = 0;
-			int windowWidth = 0;
-			int windowHeight = 0;
-			getWindowRect(hwnd, out windowX, out windowY, out windowWidth, out windowHeight);
+			getWindowMonitorSize(hwnd, out int monitorX, out int monitorY, out int monitorWidth, out int monitorHeight);
+			getWindowRect(hwnd, out int windowX, out int windowY, out int windowWidth, out int windowHeight);
 
 			return ((monitorX == windowX) &&
-						  (monitorY == windowY) &&
-						  (monitorWidth == windowWidth) &&
-						  (monitorHeight == windowHeight));
+						(monitorY == windowY) &&
+						(monitorWidth == windowWidth) &&
+						(monitorHeight == windowHeight));
 		}
 	}
 }

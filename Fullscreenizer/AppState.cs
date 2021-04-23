@@ -25,11 +25,9 @@ namespace Fullscreenizer
 			// image can be null.
 
 			return !((string.IsNullOrWhiteSpace(className)) ||
-				      (originalStyle == IntPtr.Zero) ||
-							(initialX == 0) ||
-							(initialY == 0) ||
-							(initialWidth == 0) ||
-							(initialHeight == 0));
+						(originalStyle == IntPtr.Zero) ||
+						(initialWidth == 0) ||
+						(initialHeight == 0));
 		}
 	}
 }
